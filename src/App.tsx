@@ -16,8 +16,8 @@ const firebaseConfig = {
   measurementId: "G-5C5J3GGJ06",
 };
 
-var uiConfig = {
-  signInSuccessUrl: "<url-to-redirect-to-on-success>",
+let uiConfig: firebaseui.auth.Config = {
+  signInSuccessUrl: "launch",
   signInOptions: [
     // Leave the lines as is for the providers you want to offer your users.
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,

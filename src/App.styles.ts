@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
 
   max-width: 650px;
   margin: 0 auto;
-  margin-top: 48px;
+  margin-top: 12vh;
 
   .firebaseui-page-provider-sign-in {
     margin: 0;
