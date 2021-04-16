@@ -1,7 +1,6 @@
 import * as S from "./App.styles";
 
 import React from "react";
-import logo from "./logo.svg";
 import firebase from "firebase";
 import * as firebaseui from "firebaseui";
 import "firebaseui/dist/firebaseui.css";
