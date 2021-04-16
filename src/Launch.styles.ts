@@ -14,7 +14,7 @@ export const Heading = styled.h2``;
 
 export const LaunchButton = styled.a`
   max-width: 360px;
-  padding: 20px 32px;
+  padding: 20px 28px;
   border-radius: 8px;
   box-shadow: none;
   font-size: 18px;
