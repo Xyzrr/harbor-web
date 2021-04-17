@@ -4,16 +4,7 @@ import React from "react";
 import firebase from "firebase";
 import * as firebaseui from "firebaseui";
 import "firebaseui/dist/firebaseui.css";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyA89oz2--yQCG8AieZNa_7j-gPcJsBFyEA",
-  authDomain: "harbor-chat.firebaseapp.com",
-  projectId: "harbor-chat",
-  storageBucket: "harbor-chat.appspot.com",
-  messagingSenderId: "222349427903",
-  appId: "1:222349427903:web:6433be4de99f7c5df5720a",
-  measurementId: "G-5C5J3GGJ06",
-};
+import { firebaseConfig } from "./firebase-config";
 
 let uiConfig: firebaseui.auth.Config = {
   signInSuccessUrl: "launch",
@@ -41,7 +32,7 @@ function App() {
       return;
     }
 
-    const app = firebase.initializeApp(firebaseConfig, "Harbor Web");
+    const app = firebase.initializeApp(firebaseConfig);
 
     const ui = new firebaseui.auth.AuthUI(app.auth());
     ui.start(firebaseUiWrapperEl, uiConfig);
