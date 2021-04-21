@@ -47,7 +47,7 @@ const Launch: React.FC<LaunchProps> = ({ className }) => {
               const token = await user?.getIdToken();
               console.log("TOKEN:", token);
               console.log("TOKEN RESULT:", user?.getIdTokenResult());
-              window.open(`harbor://token=${token}`);
+              window.location.href = `harbor://token=${token}`;
             }}
           >
             Launch Harbor app
