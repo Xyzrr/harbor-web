@@ -9,10 +9,18 @@ export interface LaunchProps {
 
 const Launch: React.FC<LaunchProps> = ({ className }) => {
   const [user, setUser] = React.useState<firebase.User | null>(null);
+
   React.useEffect(() => {
     const app = firebase.initializeApp(firebaseConfig);
     app.auth().onAuthStateChanged(setUser);
   }, []);
+
+  React.useEffect(() => {
+    if (user != null) {
+      console.log("USER:", user);
+    }
+  }, [user]);
+
   return (
     <S.Wrapper className={className}>
       {user != null && (
@@ -34,9 +42,18 @@ const Launch: React.FC<LaunchProps> = ({ className }) => {
               <S.UserEmail>{user.email}</S.UserEmail>
             </S.UserInfo>
           </S.UserCard>
+          <S.LaunchButton
+            onClick={async () => {
+              const token = await user?.getIdToken();
+              console.log("TOKEN:", token);
+              console.log("TOKEN RESULT:", user?.getIdTokenResult());
+              window.open(`harbor://token=${token}`);
+            }}
+          >
+            Launch Harbor app
+          </S.LaunchButton>
         </>
       )}
-      <S.LaunchButton href="harbor://key=5">Launch Harbor app</S.LaunchButton>
     </S.Wrapper>
   );
 };
