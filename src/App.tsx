@@ -27,6 +27,15 @@ function App() {
   const firebaseUiWrapperRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
+    const app = firebase.initializeApp(firebaseConfig);
+    app.auth().onAuthStateChanged((user) => {
+      if (user) {
+        window.location.href = "/launch";
+      }
+    });
+  }, []);
+
+  React.useEffect(() => {
     const firebaseUiWrapperEl = firebaseUiWrapperRef.current;
     if (firebaseUiWrapperEl == null) {
       return;
