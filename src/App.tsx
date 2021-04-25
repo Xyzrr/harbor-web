@@ -8,7 +8,7 @@ import { useHistory } from "react-router";
 import { FirebaseUIContext } from "./contexts/FirebaseUIContext";
 
 function App() {
-  const { app, user, setCredential } = React.useContext(FirebaseContext);
+  const { user, setCredential } = React.useContext(FirebaseContext);
   const { ui } = React.useContext(FirebaseUIContext);
   const history = useHistory();
   const firebaseUiWrapperRef = React.useRef<HTMLDivElement>(null);
@@ -17,7 +17,7 @@ function App() {
     if (user) {
       history.push("/launch");
     }
-  }, [user]);
+  }, [user, history]);
 
   React.useEffect(() => {
     const firebaseUiWrapperEl = firebaseUiWrapperRef.current;
@@ -50,7 +50,7 @@ function App() {
     };
 
     ui.start(firebaseUiWrapperEl, uiConfig);
-  }, []);
+  }, [ui]);
 
   return (
     <S.Wrapper>
