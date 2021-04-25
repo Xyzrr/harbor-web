@@ -2,9 +2,10 @@ import * as S from "./App.styles";
 
 import React from "react";
 import firebase from "firebase";
-import * as firebaseui from "firebaseui";
 import "firebaseui/dist/firebaseui.css";
-import { firebaseConfig } from "./firebase-config";
+import { FirebaseContext } from "./contexts/FirebaseContext";
+import { useHistory } from "react-router";
+import { FirebaseUIContext } from "./contexts/FirebaseUIContext";
 
 let uiConfig: firebaseui.auth.Config = {
   signInSuccessUrl: "launch",
@@ -24,16 +25,16 @@ let uiConfig: firebaseui.auth.Config = {
 };
 
 function App() {
+  const { app, user } = React.useContext(FirebaseContext);
+  const { ui } = React.useContext(FirebaseUIContext);
+  const history = useHistory();
   const firebaseUiWrapperRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    const app = firebase.initializeApp(firebaseConfig);
-    app.auth().onAuthStateChanged((user) => {
-      if (user) {
-        window.location.href = "/launch";
-      }
-    });
-  }, []);
+    if (user) {
+      history.push("/launch");
+    }
+  }, [user]);
 
   React.useEffect(() => {
     const firebaseUiWrapperEl = firebaseUiWrapperRef.current;
@@ -41,9 +42,6 @@ function App() {
       return;
     }
 
-    const app = firebase.initializeApp(firebaseConfig);
-
-    const ui = new firebaseui.auth.AuthUI(app.auth());
     ui.start(firebaseUiWrapperEl, uiConfig);
   }, []);
 

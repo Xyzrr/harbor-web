@@ -63,7 +63,23 @@ export const LaunchButton = styled.a`
   text-decoration: none;
   background: #1b95e0;
   font-weight: 600;
+  margin-bottom: 12px;
+  user-select: none;
   &:hover {
     background: #1085d8;
+  }
+`;
+
+export const SwitchAccountsLinkWrapper = styled.div`
+  color: #999;
+  font-size: 14px;
+`;
+
+export const SwitchAccountsLink = styled.a`
+  color: #999;
+  text-decoration: underline;
+  cursor: pointer;
+  &:hover {
+    color: #555;
   }
 `;

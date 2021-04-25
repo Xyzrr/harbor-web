@@ -1,25 +1,15 @@
 import * as S from "./Launch.styles";
 import React from "react";
-import firebase from "firebase";
-import { firebaseConfig } from "./firebase-config";
+import { FirebaseContext } from "./contexts/FirebaseContext";
+import { useHistory } from "react-router";
 
 export interface LaunchProps {
   className?: string;
 }
 
 const Launch: React.FC<LaunchProps> = ({ className }) => {
-  const [user, setUser] = React.useState<firebase.User | null>(null);
-
-  React.useEffect(() => {
-    const app = firebase.initializeApp(firebaseConfig);
-    app.auth().onAuthStateChanged(setUser);
-  }, []);
-
-  React.useEffect(() => {
-    if (user != null) {
-      console.log("USER:", user);
-    }
-  }, [user]);
+  const { app, user } = React.useContext(FirebaseContext);
+  const history = useHistory();
 
   return (
     <S.Wrapper className={className}>
@@ -52,6 +42,17 @@ const Launch: React.FC<LaunchProps> = ({ className }) => {
           >
             Launch Harbor app
           </S.LaunchButton>
+          <S.SwitchAccountsLinkWrapper>
+            Not {user.displayName}?&nbsp;
+            <S.SwitchAccountsLink
+              onClick={async () => {
+                await app.auth().signOut();
+                history.push("/");
+              }}
+            >
+              Sign in to a different account.
+            </S.SwitchAccountsLink>
+          </S.SwitchAccountsLinkWrapper>
         </>
       )}
     </S.Wrapper>
