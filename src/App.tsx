@@ -50,7 +50,7 @@ function App() {
     };
 
     ui.start(firebaseUiWrapperEl, uiConfig);
-  }, [ui]);
+  }, [ui, history, setCredential]);
 
   return (
     <S.Wrapper>
