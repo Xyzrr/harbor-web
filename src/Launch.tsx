@@ -8,7 +8,7 @@ export interface LaunchProps {
 }
 
 const Launch: React.FC<LaunchProps> = ({ className }) => {
-  const { app, user } = React.useContext(FirebaseContext);
+  const { app, user, credential } = React.useContext(FirebaseContext);
   const history = useHistory();
 
   return (
@@ -34,6 +34,13 @@ const Launch: React.FC<LaunchProps> = ({ className }) => {
           </S.UserCard>
           <S.LaunchButton
             onClick={async () => {
+              if (credential) {
+                window.location.href = `harbor://credential=${encodeURIComponent(
+                  JSON.stringify(credential.toJSON())
+                )}`;
+                return;
+              }
+
               const token = await user?.getIdToken();
               console.log("TOKEN:", token);
               console.log("TOKEN RESULT:", user?.getIdTokenResult());
